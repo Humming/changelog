@@ -12,13 +12,6 @@ var core_1 = require("angular2/core");
 var model_1 = require("./model");
 var AppComponent = (function () {
     function AppComponent() {
-        /**
-         *        <li *ngFor="let changelog of changelogs">
-                        <span>{{changelog.id}}</span>
-                        <span>{{changelog.version}}</span>
-                        <span>{{changelog.message}}</span>
-                    </li>
-         */
         this.model = new model_1.MyModel();
         this.hero = {
             name: "Eric",
@@ -35,7 +28,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: "my-app",
-            template: "\n        <h1>{{title}}</h1>\n        <h2>{{hero.name}} details!</h2>\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        <h3>ChangeLogs</h3>\n        <div>\n            <ul>\n                <li>{{changelogs[0].id}}</li>\n            </ul>\n        </div>\n  "
+            template: "\n        <h1>{{title}}</h1>\n        <h2>{{hero.name}} details!</h2>\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        <h3>ChangeLogs</h3>\n        <div>\n            <table>\n                <thead>\n                    <th>Id</th>\n                    <th>version</th>\n                    <th>message</th>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"#changelog of changelogs\">\n                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

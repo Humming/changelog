@@ -13,20 +13,23 @@ import {MyModel} from "./model"
         </div>
         <h3>ChangeLogs</h3>
         <div>
-            <ul>
-                <li>{{changelogs[0].id}}</li>
-            </ul>
+            <table>
+                <thead>
+                    <th>Id</th>
+                    <th>version</th>
+                    <th>message</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="#changelog of changelogs">
+                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
   `
 })
 export class AppComponent {
-    /**
-     *        <li *ngFor="let changelog of changelogs">
-                    <span>{{changelog.id}}</span>
-                    <span>{{changelog.version}}</span>
-                    <span>{{changelog.message}}</span>
-                </li>
-     */
+    
     model = new MyModel();
     getCompiler() {
         return this.model.compiler;
@@ -59,15 +62,12 @@ export interface IBaseService {
 }
 
 export class ChangeLogService implements IBaseService {
-    constructor() {
-        this.changelog = [
-            { id: 1, version: "4.0.9", message: "Mailgun email tracking set to false - Eric" },
-            { id: 2, version: "4.0.10", message: "Fixed error message when client was expecting json but got html due to the statuscodehandler - Eric" }
-        ];
-    }
 
-    changelog: ChangeLog[];
-        
+    changelog: ChangeLog[] = [
+        { id: 1, version: "4.0.9", message: "Mailgun email tracking set to false - Eric" },
+        { id: 2, version: "4.0.10", message: "Fixed error message when client was expecting json but got html due to the statuscodehandler - Eric" }
+    ];
+
     get(id: number): any {
         return this.changelog[id];
     }
