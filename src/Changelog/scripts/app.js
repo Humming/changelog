@@ -13,6 +13,12 @@ var model_1 = require("./model");
 var AppComponent = (function () {
     function AppComponent() {
         this.model = new model_1.MyModel();
+        this.hero = {
+            name: "Eric",
+            id: 1
+        };
+        this.settings = { title: "Changelog" };
+        this.title = this.settings.title;
     }
     AppComponent.prototype.getCompiler = function () {
         return this.model.compiler;
@@ -20,11 +26,23 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: "my-app",
-            template: "<div>Hello from </div>"
+            template: "\n        <h1>{{title}}</h1>\n  <h2>{{hero.name}} details!</h2>\n  <div><label>id: </label>{{hero.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n  </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
     return AppComponent;
 }());
 exports.AppComponent = AppComponent;
+var Hero = (function () {
+    function Hero() {
+    }
+    return Hero;
+}());
+exports.Hero = Hero;
+var SiteSettings = (function () {
+    function SiteSettings() {
+    }
+    return SiteSettings;
+}());
+exports.SiteSettings = SiteSettings;
 //# sourceMappingURL=app.js.map
