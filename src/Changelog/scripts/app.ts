@@ -5,7 +5,7 @@ import {MyModel} from "./model"
     selector: `my-app`,
     template: `
         <h1>{{title}}</h1>
-        <h2>{{hero.name}} details!</h2>
+        <h2>Mr {{hero.name}} is the hero of the day!</h2>
         <div><label>id: </label>{{hero.id}}</div>
         <div>
             <label>name: </label>
@@ -13,7 +13,7 @@ import {MyModel} from "./model"
         </div>
         <h3>ChangeLogs</h3>
         <div>
-            <table>
+            <table class="table table-striped">
                 <thead>
                     <th>Id</th>
                     <th>version</th>
@@ -35,7 +35,7 @@ export class AppComponent {
         return this.model.compiler;
     }
     hero: Hero = {
-        name: "Eric",
+        name: "(?°?°??? ???",
         id: 1
     };
     settings = new SiteSettings();
@@ -52,7 +52,7 @@ export class Hero {
 export class SiteSettings {
     title: string;
     constructor() {
-        this.title = "Changelog";
+        this.title = "On Kestrel";
     }
 }
 

@@ -14,7 +14,7 @@ var AppComponent = (function () {
     function AppComponent() {
         this.model = new model_1.MyModel();
         this.hero = {
-            name: "Eric",
+            name: "(╯°□°）╯︵ ┻━┻",
             id: 1
         };
         this.settings = new SiteSettings();
@@ -28,7 +28,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: "my-app",
-            template: "\n        <h1>{{title}}</h1>\n        <h2>{{hero.name}} details!</h2>\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        <h3>ChangeLogs</h3>\n        <div>\n            <table>\n                <thead>\n                    <th>Id</th>\n                    <th>version</th>\n                    <th>message</th>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"#changelog of changelogs\">\n                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n  "
+            template: "\n        <h1>{{title}}</h1>\n        <h2>Mr {{hero.name}} is the hero of the day!</h2>\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        <h3>ChangeLogs</h3>\n        <div>\n            <table class=\"table table-striped\">\n                <thead>\n                    <th>Id</th>\n                    <th>version</th>\n                    <th>message</th>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"#changelog of changelogs\">\n                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
@@ -43,7 +43,7 @@ var Hero = (function () {
 exports.Hero = Hero;
 var SiteSettings = (function () {
     function SiteSettings() {
-        this.title = "Changelog";
+        this.title = "On Kestrel";
     }
     return SiteSettings;
 }());
