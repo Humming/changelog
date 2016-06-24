@@ -12,12 +12,21 @@ var core_1 = require("angular2/core");
 var model_1 = require("./model");
 var AppComponent = (function () {
     function AppComponent() {
+        /**
+         *        <li *ngFor="let changelog of changelogs">
+                        <span>{{changelog.id}}</span>
+                        <span>{{changelog.version}}</span>
+                        <span>{{changelog.message}}</span>
+                    </li>
+         */
         this.model = new model_1.MyModel();
         this.hero = {
             name: "Eric",
             id: 1
         };
-        this.settings = { title: "Changelog" };
+        this.settings = new SiteSettings();
+        this.service = new ChangeLogService();
+        this.changelogs = this.service.list();
         this.title = this.settings.title;
     }
     AppComponent.prototype.getCompiler = function () {
@@ -26,7 +35,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: "my-app",
-            template: "\n        <h1>{{title}}</h1>\n  <h2>{{hero.name}} details!</h2>\n  <div><label>id: </label>{{hero.id}}</div>\n  <div>\n    <label>name: </label>\n    <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n  </div>\n  "
+            template: "\n        <h1>{{title}}</h1>\n        <h2>{{hero.name}} details!</h2>\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        <h3>ChangeLogs</h3>\n        <div>\n            <ul>\n                <li>{{changelogs[0].id}}</li>\n            </ul>\n        </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
@@ -41,8 +50,34 @@ var Hero = (function () {
 exports.Hero = Hero;
 var SiteSettings = (function () {
     function SiteSettings() {
+        this.title = "Changelog";
     }
     return SiteSettings;
 }());
 exports.SiteSettings = SiteSettings;
+var ChangeLogService = (function () {
+    function ChangeLogService() {
+        this.changelog = [
+            { id: 1, version: "4.0.9", message: "Mailgun email tracking set to false - Eric" },
+            { id: 2, version: "4.0.10", message: "Fixed error message when client was expecting json but got html due to the statuscodehandler - Eric" }
+        ];
+    }
+    ChangeLogService.prototype.get = function (id) {
+        return this.changelog[id];
+    };
+    ChangeLogService.prototype.list = function () {
+        return this.changelog;
+    };
+    ChangeLogService.prototype.post = function (object) {
+        return false;
+    };
+    return ChangeLogService;
+}());
+exports.ChangeLogService = ChangeLogService;
+var ChangeLog = (function () {
+    function ChangeLog() {
+    }
+    return ChangeLog;
+}());
+exports.ChangeLog = ChangeLog;
 //# sourceMappingURL=app.js.map

@@ -5,15 +5,28 @@ import {MyModel} from "./model"
     selector: `my-app`,
     template: `
         <h1>{{title}}</h1>
-  <h2>{{hero.name}} details!</h2>
-  <div><label>id: </label>{{hero.id}}</div>
-  <div>
-    <label>name: </label>
-    <input [(ngModel)]="hero.name" placeholder="name">
-  </div>
+        <h2>{{hero.name}} details!</h2>
+        <div><label>id: </label>{{hero.id}}</div>
+        <div>
+            <label>name: </label>
+            <input [(ngModel)]="hero.name" placeholder="name">
+        </div>
+        <h3>ChangeLogs</h3>
+        <div>
+            <ul>
+                <li>{{changelogs[0].id}}</li>
+            </ul>
+        </div>
   `
 })
 export class AppComponent {
+    /**
+     *        <li *ngFor="let changelog of changelogs">
+                    <span>{{changelog.id}}</span>
+                    <span>{{changelog.version}}</span>
+                    <span>{{changelog.message}}</span>
+                </li>
+     */
     model = new MyModel();
     getCompiler() {
         return this.model.compiler;
@@ -22,8 +35,9 @@ export class AppComponent {
         name: "Eric",
         id: 1
     };
-    settings: SiteSettings = { title: "Changelog" };
-
+    settings = new SiteSettings();
+    service = new ChangeLogService();
+    public changelogs = this.service.list();
     title = this.settings.title;
 }
 
@@ -34,5 +48,41 @@ export class Hero {
 
 export class SiteSettings {
     title: string;
+    constructor() {
+        this.title = "Changelog";
+    }
+}
 
+export interface IBaseService {
+    get(id:number): any;
+    post(object:any): any;
+}
+
+export class ChangeLogService implements IBaseService {
+    constructor() {
+        this.changelog = [
+            { id: 1, version: "4.0.9", message: "Mailgun email tracking set to false - Eric" },
+            { id: 2, version: "4.0.10", message: "Fixed error message when client was expecting json but got html due to the statuscodehandler - Eric" }
+        ];
+    }
+
+    changelog: ChangeLog[];
+        
+    get(id: number): any {
+        return this.changelog[id];
+    }
+
+    list(): ChangeLog[] {
+        return this.changelog;
+    }
+
+    post(object: any): any {
+        return false;
+    }
+}
+
+export class ChangeLog {
+    id:number;
+    version: string;
+    message: string;
 }
