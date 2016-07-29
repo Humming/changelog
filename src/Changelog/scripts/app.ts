@@ -1,4 +1,4 @@
-import {Component, OnInit, Injectable} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import "./rxjs-operators";
 import { ChangeLog } from "./changelog";
 import {ChangeLogService} from "./changelog.service";
@@ -14,6 +14,28 @@ import {MyModel} from "./model";
             <label>name: </label>
             <input [(ngModel)]="hero.name" placeholder="name">
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <h3>Add change log<h3/>
+        <form>
+            <div class="form-group"> 
+                <label>version: </label>
+                <input class="form-control" [ngModel]="changelog.version" placeholder="1.0.0">
+            </div>
+            <div class="form-group"> 
+                <label>version: </label>
+                <input class="form-control" [ngModel]="changelog.version" placeholder="1.0.0">
+            </div>
+            <div class="form-group"> 
+                <label>version: </label>
+                <input class="form-control" [ngModel]="changelog.version" placeholder="1.0.0">
+            </div>
+            <div class="form-group">
+                <label>version: </label>
+                <input class="form-control" [ngModel]="changelog.version" placeholder="1.0.0">
+            </div>
+        </form>
         <h3>ChangeLogs</h3>
         <div>
             <table class="table table-striped">
