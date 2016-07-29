@@ -14,7 +14,7 @@ var AppComponent = (function () {
     function AppComponent() {
         this.model = new model_1.MyModel();
         this.hero = {
-            name: "(╯°□°）╯︵ ┻━┻",
+            name: "(?�?�??? ???",
             id: 1
         };
         this.settings = new SiteSettings();
