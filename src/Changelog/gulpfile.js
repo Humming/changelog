@@ -8,7 +8,8 @@ var gulp = require('gulp');
 var del = require('del');
 
 var paths = {
-    scripts: ['scripts/**/*.js', 'scripts/**/*.ts', 'scripts/**/*.map'],
+    //scripts: ['scripts/**/*.js', 'scripts/**/*.ts', 'scripts/**/*.map'],
+    scripts: ['scripts/**/*.js'],
     libs: ['node_modules/angular2/bundles/angular2.js',
            'node_modules/angular2/bundles/angular2-polyfills.js',
            'node_modules/systemjs/dist/system.src.js',

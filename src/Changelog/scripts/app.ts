@@ -4,7 +4,7 @@ import {MyModel} from "./model"
 @Component({
     selector: `my-app`,
     template: `
-        <h1>{{title}}</h1>
+        <h1>{{title}} hello</h1>
         <h2>Mr {{hero.name}} is the hero of the day!</h2>
         <div><label>id: </label>{{hero.id}}</div>
         <div>
@@ -18,10 +18,11 @@ import {MyModel} from "./model"
                     <th>Id</th>
                     <th>version</th>
                     <th>message</th>
+                    <th>username</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="#changelog of changelogs">
-                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td>
+                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td><td>{{changelog.username}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -58,14 +59,30 @@ export class SiteSettings {
 
 export interface IBaseService {
     get(id:number): any;
-    post(object:any): any;
+    post(object: any): any;
+    //list(): Promise<ChangeLog[]>;
+    list(): ChangeLog[];
 }
 
 export class ChangeLogService implements IBaseService {
 
     changelog: ChangeLog[] = [
-        { id: 1, version: "4.0.9", message: "Mailgun email tracking set to false - Eric" },
-        { id: 2, version: "4.0.10", message: "Fixed error message when client was expecting json but got html due to the statuscodehandler - Eric" }
+        {
+            id: 1,
+            version: "4.0.9",
+            message: "Mailgun email tracking set to false",
+            username: "Eric",
+            createdon: new Date("2016-07-29"),
+            updatedon: new Date("2016-07-29")
+        },
+        {
+            id: 2,
+            version: "4.0.10",
+            message: "Fixed error message when client was expecting json but got html due to the statuscodehandler",
+            username: "Eric",
+            createdon: new Date("2016-07-29"),
+            updatedon: new Date("2016-07-29")
+        }
     ];
 
     get(id: number): any {
@@ -85,4 +102,7 @@ export class ChangeLog {
     id:number;
     version: string;
     message: string;
+    username: string;
+    createdon: Date;
+    updatedon: Date;
 }

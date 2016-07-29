@@ -28,7 +28,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: "my-app",
-            template: "\n        <h1>{{title}}</h1>\n        <h2>Mr {{hero.name}} is the hero of the day!</h2>\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        <h3>ChangeLogs</h3>\n        <div>\n            <table class=\"table table-striped\">\n                <thead>\n                    <th>Id</th>\n                    <th>version</th>\n                    <th>message</th>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"#changelog of changelogs\">\n                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n  "
+            template: "\n        <h1>{{title}} hello</h1>\n        <h2>Mr {{hero.name}} is the hero of the day!</h2>\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        <h3>ChangeLogs</h3>\n        <div>\n            <table class=\"table table-striped\">\n                <thead>\n                    <th>Id</th>\n                    <th>version</th>\n                    <th>message</th>\n                    <th>username</th>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"#changelog of changelogs\">\n                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td><td>{{changelog.username}}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n  "
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
@@ -51,8 +51,22 @@ exports.SiteSettings = SiteSettings;
 var ChangeLogService = (function () {
     function ChangeLogService() {
         this.changelog = [
-            { id: 1, version: "4.0.9", message: "Mailgun email tracking set to false - Eric" },
-            { id: 2, version: "4.0.10", message: "Fixed error message when client was expecting json but got html due to the statuscodehandler - Eric" }
+            {
+                id: 1,
+                version: "4.0.9",
+                message: "Mailgun email tracking set to false",
+                username: "Eric",
+                createdon: new Date("2016-07-29"),
+                updatedon: new Date("2016-07-29")
+            },
+            {
+                id: 2,
+                version: "4.0.10",
+                message: "Fixed error message when client was expecting json but got html due to the statuscodehandler",
+                username: "Eric",
+                createdon: new Date("2016-07-29"),
+                updatedon: new Date("2016-07-29")
+            }
         ];
     }
     ChangeLogService.prototype.get = function (id) {
