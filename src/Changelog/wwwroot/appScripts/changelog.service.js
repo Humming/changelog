@@ -14,23 +14,23 @@ var Observable_1 = require("rxjs/Observable");
 var ChangeLogService = (function () {
     function ChangeLogService(http) {
         this.http = http;
-        this.apiUrl = "http://localhost:54004/api/changelogs"; // uRL to web API
+        this.apiUrl = "http://development.changelog.no:54004//api/ChangeLogs"; // uRL to web API
         this.changelog = [
             {
                 id: 1,
                 version: "4.0.9",
                 message: "Mailgun email tracking set to false",
                 username: "Eric",
-                createdon: new Date("2016-07-29"),
-                updatedon: new Date("2016-07-29")
+                createdOn: new Date("2016-07-29"),
+                updatedOn: new Date("2016-07-29")
             },
             {
                 id: 2,
                 version: "4.0.10",
                 message: "Fixed error message when client was expecting json but got html due to the statuscodehandler",
                 username: "Eric",
-                createdon: new Date("2016-07-29"),
-                updatedon: new Date("2016-07-29")
+                createdOn: new Date("2016-07-29"),
+                updatedOn: new Date("2016-07-29")
             }
         ];
     }
@@ -42,9 +42,17 @@ var ChangeLogService = (function () {
             .map(this.extractData)
             .catch(this.handleError);
     };
+    ChangeLogService.prototype.postChangeLog = function (changelog) {
+        changelog.createdOn = new Date;
+        changelog.updatedOn = changelog.createdOn;
+        var body = JSON.stringify(changelog);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+        var options = new http_1.RequestOptions({ headers: headers });
+        return this.http.post(this.apiUrl, body, options).map(this.extractData).catch(this.handleError);
+    };
     ChangeLogService.prototype.extractData = function (res) {
         var body = res.json();
-        return body.data || {};
+        return body || {};
     };
     ChangeLogService.prototype.handleError = function (error) {
         var errorMessage = (error.message)

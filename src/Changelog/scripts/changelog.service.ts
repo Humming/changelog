@@ -1,5 +1,5 @@
 ﻿import { Injectable } from "@angular/core";
-import { Http, Response } from "@angular/http";
+import { Http, Response, Headers, RequestOptions } from "@angular/http";
 import { ChangeLog } from "./changelog";
 import { Observable } from "rxjs/Observable";
 
@@ -17,7 +17,7 @@ export class ChangeLogService implements IBaseService {
     constructor(private http: Http) { }
 
 
-    private apiUrl = "http://localhost:54004/api/changelogs";  // uRL to web API
+    private apiUrl = "http://development.changelog.no:54004//api/ChangeLogs";  // uRL to web API
 
     changelog: ChangeLog[] = [
         {
@@ -25,16 +25,16 @@ export class ChangeLogService implements IBaseService {
             version: "4.0.9",
             message: "Mailgun email tracking set to false",
             username: "Eric",
-            createdon: new Date("2016-07-29"),
-            updatedon: new Date("2016-07-29")
+            createdOn: new Date("2016-07-29"),
+            updatedOn: new Date("2016-07-29")
         },
         {
             id: 2,
             version: "4.0.10",
             message: "Fixed error message when client was expecting json but got html due to the statuscodehandler",
             username: "Eric",
-            createdon: new Date("2016-07-29"),
-            updatedon: new Date("2016-07-29")
+            createdOn: new Date("2016-07-29"),
+            updatedOn: new Date("2016-07-29")
         }
     ];
 
@@ -48,9 +48,19 @@ export class ChangeLogService implements IBaseService {
             .catch(this.handleError);
     }
 
+    postChangeLog(changelog: ChangeLog): Observable<ChangeLog> {
+        changelog.createdOn = new Date;
+        changelog.updatedOn = changelog.createdOn;
+        
+        let body = JSON.stringify(changelog);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.apiUrl, body, options).map(this.extractData).catch(this.handleError);
+    }
+
     private extractData(res: Response) {
         let body:any = res.json();
-        return body.data || { };
+        return body|| { };
     }
 
     private handleError(error: any) {

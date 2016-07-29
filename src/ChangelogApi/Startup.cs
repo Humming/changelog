@@ -13,6 +13,9 @@ using ChangelogApi.Data;
 using ChangelogApi.Models;
 using ChangelogApi.Services;
 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
+
 namespace ChangelogApi
 {
     public class Startup
@@ -46,9 +49,14 @@ namespace ChangelogApi
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
+            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
             services.AddMvc();
-
+            
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
@@ -76,7 +84,7 @@ namespace ChangelogApi
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
-
+            app.UseCors("MyPolicy");
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

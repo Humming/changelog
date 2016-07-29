@@ -1,8 +1,8 @@
-import {Component, OnInit, Injectable} from "@angular/core"
-import './rxjs-operators';
+import {Component, OnInit, Injectable} from "@angular/core";
+import "./rxjs-operators";
 import { ChangeLog } from "./changelog";
-import {ChangeLogService} from "./changelog.service"
-import {MyModel} from "./model"
+import {ChangeLogService} from "./changelog.service";
+import {MyModel} from "./model";
 
 @Component({
     selector: `my-app`,
@@ -22,20 +22,22 @@ import {MyModel} from "./model"
                     <th>version</th>
                     <th>message</th>
                     <th>username</th>
+                    <th>createdon</th>
+                    <th>updatedon</th>
                 </thead>
                 <tbody>
                     <tr *ngFor="let changelog of changelogs">
-                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td><td>{{changelog.username}}</td>
+                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td><td>{{changelog.username}}</td><td>{{changelog.createdon}}</td><td>{{changelog.updatedon}}</td>
                     </tr>
                 </tbody>
             </table>
         </div>
-  `
+  `,providers: [ChangeLogService]
 })
 export class AppComponent implements OnInit {
     errorMessage: string;
-    changelogs: ChangeLog[];
-    mode = 'observable';
+    public changelogs: ChangeLog[];
+    mode = "observable";
     constructor(private changelogService: ChangeLogService) { }
 
     ngOnInit() { this.getList(); }
@@ -52,13 +54,24 @@ export class AppComponent implements OnInit {
     };
 
     settings = new SiteSettings();
-    //service = new ChangeLogService();
+    // service = new ChangeLogService();
 
     getList() {
-        this.changelogService.getChangeLogs().subscribe(changelogs => this.changelogs = changelogs, error => this.errorMessage = <any>error);
-
+        this.changelogService.getChangeLogs()
+            .subscribe(changelogs => this.changelogs = changelogs
+            , error => this.errorMessage = <any>error);
     }
-    
+
+    postChangeLog(changelog: ChangeLog) {
+        if (!changelog) {
+            return;
+        }
+
+        this.changelogService.postChangeLog(changelog)
+            .subscribe(changelog => this.changelogs.push(changelog)
+                        , error => this.errorMessage = <any>error);
+    }
+
     title = this.settings.title;
 }
 

@@ -8,8 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using ChangelogApi.Data;
 using ChangelogApi.Models;
 
+using Microsoft.AspNetCore.Cors;
+
 namespace ChangelogApi.Controllers
 {
+    [EnableCors("MyPolicy")]
     [Produces("application/json")]
     [Route("api/ChangeLogs")]
     public class ChangeLogsController : Controller
@@ -22,6 +25,7 @@ namespace ChangelogApi.Controllers
         }
 
         // GET: api/ChangeLogs
+        [EnableCors("MyPolicy")]
         [HttpGet]
         public IEnumerable<ChangeLog> GetChangeLog()
         {
@@ -29,6 +33,7 @@ namespace ChangelogApi.Controllers
         }
 
         // GET: api/ChangeLogs/5
+        [EnableCors("MyPolicy")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetChangeLog([FromRoute] int id)
         {
@@ -48,6 +53,7 @@ namespace ChangelogApi.Controllers
         }
 
         // PUT: api/ChangeLogs/5
+        [EnableCors("MyPolicy")]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutChangeLog([FromRoute] int id, [FromBody] ChangeLog changeLog)
         {
@@ -83,6 +89,7 @@ namespace ChangelogApi.Controllers
         }
 
         // POST: api/ChangeLogs
+        [EnableCors("MyPolicy")]
         [HttpPost]
         public async Task<IActionResult> PostChangeLog([FromBody] ChangeLog changeLog)
         {
@@ -112,6 +119,7 @@ namespace ChangelogApi.Controllers
         }
 
         // DELETE: api/ChangeLogs/5
+        [EnableCors("MyPolicy")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteChangeLog([FromRoute] int id)
         {

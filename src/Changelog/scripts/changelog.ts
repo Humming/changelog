@@ -3,6 +3,6 @@
     version: string;
     message: string;
     username: string;
-    createdon: Date;
-    updatedon: Date;
+    createdOn: Date;
+    updatedOn: Date;
 }
