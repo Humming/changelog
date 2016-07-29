@@ -1,4 +1,5 @@
 import {Component, OnInit, Injectable} from "@angular/core"
+import './rxjs-operators';
 import { ChangeLog } from "./changelog";
 import {ChangeLogService} from "./changelog.service"
 import {MyModel} from "./model"
