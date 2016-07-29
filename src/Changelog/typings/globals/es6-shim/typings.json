@@ -1,4 +1,9 @@
 {
+  "globalDependencies": {
+    "core-js": "registry:dt/core-js#0.0.0+20160602141332",
+    "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
+    "node": "registry:dt/node#6.0.0+20160621231320"
+  },
   "resolution": "main",
   "tree": {
     "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/9807d9b701f58be068cb07833d2b24235351d052/es6-shim/es6-shim.d.ts",

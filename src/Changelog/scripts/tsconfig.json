@@ -1,17 +1,19 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
-    "noEmitOnError": true,
-    "sourceMap": true,
-    "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "target": "es5"
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "noEmitOnError": true,
+    "noImplicitAny": false,
+    "outDir": "../wwwroot/appScripts/",
+    "removeComments": false,
+    "sourceMap": true,
+    "target": "es5",
+    "moduleResolution": "node"
   },
-  "files": [
-      "./app.ts",
-      "./model.ts",
-      "./main.ts",
-      "../typings/index.d.ts"
-  ],
-  "compileOnSave": true
+  "exclude": [
+    "node_modules",
+    "typings/index",
+    "typings/index.d.ts"
+  ]
 }

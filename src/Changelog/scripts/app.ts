@@ -1,4 +1,6 @@
-import {Component} from "angular2/core"
+import {Component, OnInit, Injectable} from "@angular/core"
+import { ChangeLog } from "./changelog";
+import {ChangeLogService} from "./changelog.service"
 import {MyModel} from "./model"
 
 @Component({
@@ -21,7 +23,7 @@ import {MyModel} from "./model"
                     <th>username</th>
                 </thead>
                 <tbody>
-                    <tr *ngFor="#changelog of changelogs">
+                    <tr *ngFor="let changelog of changelogs">
                         <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td><td>{{changelog.username}}</td>
                     </tr>
                 </tbody>
@@ -29,19 +31,33 @@ import {MyModel} from "./model"
         </div>
   `
 })
-export class AppComponent {
-    
+export class AppComponent implements OnInit {
+    errorMessage: string;
+    changelogs: ChangeLog[];
+    mode = 'observable';
+    constructor(private changelogService: ChangeLogService) { }
+
+    ngOnInit() { this.getList(); }
+
     model = new MyModel();
+
     getCompiler() {
         return this.model.compiler;
     }
+
     hero: Hero = {
         name: "(?°?°??? ???",
         id: 1
     };
+
     settings = new SiteSettings();
-    service = new ChangeLogService();
-    public changelogs = this.service.list();
+    //service = new ChangeLogService();
+
+    getList() {
+        this.changelogService.getChangeLogs().subscribe(changelogs => this.changelogs = changelogs, error => this.errorMessage = <any>error);
+
+    }
+    
     title = this.settings.title;
 }
 
@@ -57,52 +73,3 @@ export class SiteSettings {
     }
 }
 
-export interface IBaseService {
-    get(id:number): any;
-    post(object: any): any;
-    //list(): Promise<ChangeLog[]>;
-    list(): ChangeLog[];
-}
-
-export class ChangeLogService implements IBaseService {
-
-    changelog: ChangeLog[] = [
-        {
-            id: 1,
-            version: "4.0.9",
-            message: "Mailgun email tracking set to false",
-            username: "Eric",
-            createdon: new Date("2016-07-29"),
-            updatedon: new Date("2016-07-29")
-        },
-        {
-            id: 2,
-            version: "4.0.10",
-            message: "Fixed error message when client was expecting json but got html due to the statuscodehandler",
-            username: "Eric",
-            createdon: new Date("2016-07-29"),
-            updatedon: new Date("2016-07-29")
-        }
-    ];
-
-    get(id: number): any {
-        return this.changelog[id];
-    }
-
-    list(): ChangeLog[] {
-        return this.changelog;
-    }
-
-    post(object: any): any {
-        return false;
-    }
-}
-
-export class ChangeLog {
-    id:number;
-    version: string;
-    message: string;
-    username: string;
-    createdon: Date;
-    updatedon: Date;
-}
