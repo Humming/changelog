@@ -6,3 +6,4 @@ var MyModel = (function () {
     return MyModel;
 }());
 exports.MyModel = MyModel;
+//# sourceMappingURL=model.js.map

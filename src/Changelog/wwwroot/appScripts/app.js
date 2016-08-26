@@ -16,19 +16,20 @@ var AppComponent = (function () {
     function AppComponent(changelogService) {
         this.changelogService = changelogService;
         this.mode = "observable";
-        this.model = new model_1.MyModel();
         this.hero = {
-            name: "(?�?�??? ???",
+            name: "test hero",
             id: 1
         };
-        this.settings = new SiteSettings();
-        this.title = this.settings.title;
     }
-    AppComponent.prototype.ngOnInit = function () { this.getList(); };
+    AppComponent.prototype.ngOnInit = function () {
+        this.model = new model_1.MyModel();
+        this.settings = new SiteSettings();
+        this.title = this.settings.getTitle();
+        this.getList();
+    };
     AppComponent.prototype.getCompiler = function () {
         return this.model.compiler;
     };
-    // service = new ChangeLogService();
     AppComponent.prototype.getList = function () {
         var _this = this;
         this.changelogService.getChangeLogs()
@@ -45,7 +46,7 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: "my-app",
-            template: "\n        <h1>{{title}} hello</h1>\n        <h2>Mr {{hero.name}} is the hero of the day!</h2>\n        <div><label>id: </label>{{hero.id}}</div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\">\n        </div>\n        <br/>\n        <br/>\n        <br/>\n        <h3>Add change log<h3/>\n        <form>\n            <div class=\"form-group\"> \n                <label>version: </label>\n                <input class=\"form-control\" [ngModel]=\"changelog.version\" placeholder=\"1.0.0\">\n            </div>\n            <div class=\"form-group\"> \n                <label>version: </label>\n                <input class=\"form-control\" [ngModel]=\"changelog.version\" placeholder=\"1.0.0\">\n            </div>\n            <div class=\"form-group\"> \n                <label>version: </label>\n                <input class=\"form-control\" [ngModel]=\"changelog.version\" placeholder=\"1.0.0\">\n            </div>\n            <div class=\"form-group\">\n                <label>version: </label>\n                <input class=\"form-control\" [ngModel]=\"changelog.version\" placeholder=\"1.0.0\">\n            </div>\n        </form>\n        <h3>ChangeLogs</h3>\n        <div>\n            <table class=\"table table-striped\">\n                <thead>\n                    <th>Id</th>\n                    <th>version</th>\n                    <th>message</th>\n                    <th>username</th>\n                    <th>createdon</th>\n                    <th>updatedon</th>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let changelog of changelogs\">\n                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td><td>{{changelog.username}}</td><td>{{changelog.createdon}}</td><td>{{changelog.updatedon}}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n  ", providers: [changelog_service_1.ChangeLogService]
+            template: "\n        <h1>{{title}} hello</h1>\n        <h2>Mr {{hero.name}} is the hero of the day!</h2>\n        <div>\n            <label>id: {{hero.id}}</label>\n        </div>\n        <div>\n            <label>name: </label>\n            <input [(ngModel)]=\"hero.name\" placeholder=\"name\"/>\n        </div>\n        <br/>\n        <br/>\n        <br/>\n        \n        <changelog-form></changelog-form>        \n        <h3>ChangeLogs</h3>\n        <div>\n            <table class=\"table table-striped\">\n                <thead>\n                    <th>Id</th>\n                    <th>version</th>\n                    <th>message</th>\n                    <th>username</th>\n                    <th>createdon</th>\n                    <th>updatedon</th>\n                </thead>\n                <tbody>\n                    <tr *ngFor=\"let changelog of changelogs\">\n                        <td>{{changelog.id}}</td><td>{{changelog.version}}</td><td>{{changelog.message}}</td><td>{{changelog.username}}</td><td>{{changelog.createdon}}</td><td>{{changelog.updatedon}}</td>\n                    </tr>\n                </tbody>\n            </table>\n        </div>\n  ", providers: [changelog_service_1.ChangeLogService]
         }), 
         __metadata('design:paramtypes', [changelog_service_1.ChangeLogService])
     ], AppComponent);
@@ -62,6 +63,10 @@ var SiteSettings = (function () {
     function SiteSettings() {
         this.title = "On Kestrel";
     }
+    SiteSettings.prototype.getTitle = function () {
+        return this.title;
+    };
     return SiteSettings;
 }());
 exports.SiteSettings = SiteSettings;
+//# sourceMappingURL=app.js.map

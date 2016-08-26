@@ -14,7 +14,7 @@ var Observable_1 = require("rxjs/Observable");
 var ChangeLogService = (function () {
     function ChangeLogService(http) {
         this.http = http;
-        this.apiUrl = "http://development.changelog.no:54004//api/ChangeLogs"; // uRL to web API
+        this.apiUrl = "http://development.changelog.no:54004/api/ChangeLogs"; // uRL to web API
         this.changelog = [
             {
                 id: 1,
@@ -71,3 +71,4 @@ var ChangeLogService = (function () {
     return ChangeLogService;
 }());
 exports.ChangeLogService = ChangeLogService;
+//# sourceMappingURL=changelog.service.js.map
