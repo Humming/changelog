@@ -6,8 +6,7 @@ var destPath = './wwwroot/libs/';
 
 // Delete the dist directory
 gulp.task('clean', function () {
-    return gulp.src(destPath)
-        .pipe(clean());
+    return gulp.src(destPath).pipe(clean());
 });
 
 gulp.task("scriptsNStyles", () => {
@@ -22,8 +21,7 @@ gulp.task("scriptsNStyles", () => {
             'bootstrap/dist/js/bootstrap.*js',
     ], {
         cwd: "node_modules/**"
-    })
-        .pipe(gulp.dest("./wwwroot/libs"));
+    }).pipe(gulp.dest("./wwwroot/libs"));
 });
 
 var tsProject = ts.createProject('scripts/tsconfig.json');

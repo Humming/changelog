@@ -17,7 +17,7 @@ export class ChangeLogService implements IBaseService {
     constructor(private http: Http) { }
 
 
-    private apiUrl = "http://development.changelog.no:54004//api/ChangeLogs";  // uRL to web API
+    private apiUrl = "http://development.changelog.no:54004/api/ChangeLogs";  // uRL to web API
 
     changelog: ChangeLog[] = [
         {
@@ -60,7 +60,7 @@ export class ChangeLogService implements IBaseService {
 
     private extractData(res: Response) {
         let body:any = res.json();
-        return body|| { };
+        return body || {};
     }
 
     private handleError(error: any) {
