@@ -1,0 +1,27 @@
+<div class="container">
+    <h3>ChangeLogs</h3>
+    <div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>version</th>
+                    <th>message</th>
+                    <th>username</th>
+                    <th>createdon</th>
+                    <th>updatedon</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let changelog of changelogs">
+                    <td>{{changelog.id}}</td>
+                    <td>{{changelog.version}}</td>
+                    <td>{{changelog.message}}</td>
+                    <td>{{changelog.username}}</td>
+                    <td>{{changelog.createdon}}</td>
+                    <td>{{changelog.updatedon}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

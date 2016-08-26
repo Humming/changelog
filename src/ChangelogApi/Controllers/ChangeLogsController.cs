@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -7,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ChangelogApi.Data;
 using ChangelogApi.Models;
+using ChangelogApi.Services;
 
 using Microsoft.AspNetCore.Cors;
 
@@ -17,19 +16,26 @@ namespace ChangelogApi.Controllers
     [Route("api/ChangeLogs")]
     public class ChangeLogsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext context;
+        private readonly ISlackSettings settings;
 
-        public ChangeLogsController(ApplicationDbContext context)
+
+        public ChangeLogsController(ApplicationDbContext context, ISlackSettings settings)
         {
-            _context = context;
+            this.context = context;
+            this.settings = settings;
         }
+
 
         // GET: api/ChangeLogs
         [EnableCors("MyPolicy")]
         [HttpGet]
-        public IEnumerable<ChangeLog> GetChangeLog()
+        public async Task<IActionResult> GetChangeLog()
         {
-            return _context.ChangeLog;
+            var changelogs = await this.context.ChangeLog.ToListAsync();
+            if (!changelogs.Any())
+                return NotFound();
+            return Ok(changelogs);
         }
 
         // GET: api/ChangeLogs/5
@@ -42,7 +48,7 @@ namespace ChangelogApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            ChangeLog changeLog = await _context.ChangeLog.SingleOrDefaultAsync(m => m.Id == id);
+            ChangeLog changeLog = await this.context.ChangeLog.SingleOrDefaultAsync(m => m.Id == id);
 
             if (changeLog == null)
             {
@@ -67,11 +73,11 @@ namespace ChangelogApi.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(changeLog).State = EntityState.Modified;
+            this.context.Entry(changeLog).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                await this.context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -98,10 +104,10 @@ namespace ChangelogApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.ChangeLog.Add(changeLog);
+            this.context.ChangeLog.Add(changeLog);
             try
             {
-                await _context.SaveChangesAsync();
+                await this.context.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {
@@ -114,9 +120,20 @@ namespace ChangelogApi.Controllers
                     throw;
                 }
             }
-
-            return CreatedAtAction("GetChangeLog", new { id = changeLog.Id }, changeLog);
+            var slackClient= new SlackClient(this.settings.WebHookUrl);
+            var slackResponse = await slackClient.PostMessage(changeLog);
+            if(slackResponse.IsSuccessStatusCode)
+            {
+                return CreatedAtAction("GetChangeLog", new { id = changeLog.Id }, changeLog);
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
+
+
+        
 
         // DELETE: api/ChangeLogs/5
         [EnableCors("MyPolicy")]
@@ -128,21 +145,21 @@ namespace ChangelogApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            ChangeLog changeLog = await _context.ChangeLog.SingleOrDefaultAsync(m => m.Id == id);
+            ChangeLog changeLog = await this.context.ChangeLog.SingleOrDefaultAsync(m => m.Id == id);
             if (changeLog == null)
             {
                 return NotFound();
             }
 
-            _context.ChangeLog.Remove(changeLog);
-            await _context.SaveChangesAsync();
+            this.context.ChangeLog.Remove(changeLog);
+            await this.context.SaveChangesAsync();
 
             return Ok(changeLog);
         }
 
         private bool ChangeLogExists(int id)
         {
-            return _context.ChangeLog.Any(e => e.Id == id);
+            return this.context.ChangeLog.Any(e => e.Id == id);
         }
     }
 }
