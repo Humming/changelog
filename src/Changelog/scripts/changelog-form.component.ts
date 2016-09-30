@@ -8,7 +8,7 @@ import { ChangeLogService } from "./changelog.service";
     providers: [ChangeLogService]
 })
 
-export class ChangeLogFormComponent {
+export default class ChangeLogFormComponent {
 
     errorMessage: string;
     changelogs: ChangeLog[];

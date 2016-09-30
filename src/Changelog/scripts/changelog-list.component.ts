@@ -7,7 +7,7 @@ import { ChangeLogService } from "./changelog.service";
     templateUrl: "changelog-list.component.html",
     providers: [ChangeLogService]
 })
-export class ChangeLogListComponent implements OnInit {
+export default class ChangeLogListComponent implements OnInit {
     errorMessage: string;
     changelogs: ChangeLog[];
     mode = "observable";

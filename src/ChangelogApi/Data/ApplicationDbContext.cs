@@ -24,5 +24,6 @@ namespace ChangelogApi.Data
         }
 
         public DbSet<ChangeLog> ChangeLog { get; set; }
+        //public DbSet<PushEvent> PushEvent { get; set; }
     }
 }

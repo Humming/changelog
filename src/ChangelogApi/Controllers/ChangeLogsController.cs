@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,8 @@ using ChangelogApi.Models;
 using ChangelogApi.Services;
 
 using Microsoft.AspNetCore.Cors;
+
+using Newtonsoft.Json.Linq;
 
 namespace ChangelogApi.Controllers
 {
@@ -160,6 +163,18 @@ namespace ChangelogApi.Controllers
         private bool ChangeLogExists(int id)
         {
             return this.context.ChangeLog.Any(e => e.Id == id);
+        }
+
+
+        [EnableCors("MyPolicy")]
+        [HttpPost]
+        public async Task<IActionResult> WebHook(string pushEvent)
+        {
+            //if(pushEvent == null)
+                throw new ArgumentNullException(nameof(PushEvent));
+
+
+            return Ok();
         }
     }
 }
