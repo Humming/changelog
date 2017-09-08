@@ -56,6 +56,14 @@ namespace ChangelogApi
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
             app.UseCors("MyPolicy");
+
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            {
+                Authority = "http://localhost:5000/",
+                RequireHttpsMetadata = false,
+                ApiName = "api1"
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
